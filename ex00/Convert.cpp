@@ -147,7 +147,7 @@ void	Convert::showChar()
 	}
 	if (_doubleNaned || _doubleImpossible || (*_str_end != 0 && _str_end[1] != 0))
 	{
-		std::cout << "char : Impossible\n";
+		std::cout << "char : impossible\n";
 		return ;
 	}
 	if (_doubleInfinited)

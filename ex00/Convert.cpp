@@ -90,8 +90,7 @@ void	Convert::changeActualType()
 	{
 		_doubleVal = strtod(_line.c_str(), &_str_end);
 		checkRangeError();
-		checkNan();
-		checkInf();
+		checkInfinityAndNan();
 	}
 }
 
@@ -205,24 +204,7 @@ void	Convert::showFloat()
 	std::cout << "float : " << static_cast<float>(_doubleVal) << "f" << std::endl;
 }
 
-
-void	Convert::checkNan()
-{
-	long long unsigned int tmp;
-	tmp = *(reinterpret_cast<long long unsigned int*>(&_doubleVal));	
-	if (
-		((tmp >= 0x7FF0000000000001) && (tmp <= 0x7FF7FFFFFFFFFFFF))
-	|| ((tmp >= 0xFFF0000000000001) && (tmp <= 0xFFF7FFFFFFFFFFFF))
-	|| ((tmp >= 0x7FF8000000000000) && (tmp <= 0x7FFFFFFFFFFFFFFF))
-	|| ((tmp >= 0xFFF8000000000000) && (tmp <= 0xFFFFFFFFFFFFFFFF))
-	)
-	{	
-		_doubleNaned = 1;
-		return ;
-	}
-}
-
-void	Convert::checkInf()
+void	Convert::checkInfinityAndNan()
 {
 	long long unsigned int tmp;
 	tmp = *(reinterpret_cast<long long unsigned int*>(&_doubleVal));
@@ -231,6 +213,13 @@ void	Convert::checkInf()
 		_doubleInfinited =1;
 		return ;
 	}
+	else if ((tmp & 0x7FF0000000000000) == 0x7FF0000000000000)
+	{
+		_doubleNaned = 1;
+		return ;
+	}
+	else
+		return ;
 }
 
 void	Convert::showDouble()

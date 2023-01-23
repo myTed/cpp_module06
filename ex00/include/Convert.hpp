@@ -26,8 +26,7 @@ private:
 
 	void	changeActualType();
 	void	checkRangeError();
-	void	checkNan();
-	void	checkInf();
+	void	checkInfinityAndNan();
 	void	showDouble();
 	void	showInt();
 	void	showChar();
